@@ -27,6 +27,9 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 		
 		// Handles all the paths from the home screen
 		
+		
+		
+		
 		if (StateManager.getCurrentState().equals(handler.getEngine().getMenuState())){
 			if (mouseX >= 701 && mouseX <= 899 && mouseY >= 350 && mouseY <= 549){
 				StateManager.setCurrentState(handler.getEngine().getGameState());			}
@@ -49,6 +52,27 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 				StateManager.setCurrentState(handler.getEngine().getMenuState());	
 			}
 		}
+		
+		// Pause Button on gameState
+		if (StateManager.getCurrentState().equals(handler.getEngine().getGameState())){
+			if (mouseX >= 769 && mouseX <= 826 && mouseY >= 807 && mouseY <= 857){
+				StateManager.setCurrentState(handler.getEngine().getPausedState());
+			}
+		} else if (StateManager.getCurrentState().equals(handler.getEngine().getPausedState())){
+			if (mouseX >= 594 && mouseX <= 1001 && mouseY >= 559 && mouseY <= 857){
+				StateManager.setCurrentState(handler.getEngine().getGameState());
+			}
+		} else if (StateManager.getCurrentState().equals(handler.getEngine().getPausedState())){
+			if (mouseX >= 594 && mouseX <= 1001 && mouseY >= 559 && mouseY <= 857){
+				StateManager.setCurrentState(handler.getEngine().getGameState());
+			}
+			if (mouseX >= 598 && mouseX <= 790 && mouseY >= 353 && mouseY <= 544){
+				System.out.println("NIGGER");
+				StateManager.setCurrentState(handler.getEngine().getUpgradeScreenHome());
+			}
+		}
+			
+		
 		
 		
 		

@@ -159,7 +159,7 @@ public class Player extends Character{
 	@Override
 	public void render(Graphics g) {
 		
-		g.fillRect(500, 0, 1100, 900);
+		//g.fillRect(500, 0, 1100, 900);
 		
 		// This rectangle represents the bounding box, aka what we will use to check collisions
 		g.setColor(Color.red);

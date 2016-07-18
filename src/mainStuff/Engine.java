@@ -10,8 +10,11 @@ import manager.MouseManager;
 import states.GameState;
 import states.InstructionsState;
 import states.MenuState;
+import states.OffensiveUpgradeScreen;
+import states.PausedState;
 import states.SettingsState;
 import states.StateManager;
+import states.UpgradeScreenHome;
 
 public class Engine implements Runnable {
 
@@ -37,6 +40,9 @@ public class Engine implements Runnable {
 	private MenuState menuState;
 	private SettingsState settingsState;
 	private InstructionsState instructionsState;
+	private PausedState pausedState;
+	private UpgradeScreenHome upgradeScreenHome;
+	private OffensiveUpgradeScreen offensiveUpgradeScreen;
 
 	public Engine(String title, int frameX, int frameY) {
 		this.width = frameX;
@@ -55,6 +61,9 @@ public class Engine implements Runnable {
 		gameState = new GameState(handler, null);
 		settingsState = new SettingsState(ImageLoader.loadImage("res\\screens\\settings_screen.png"));
 		instructionsState = new InstructionsState(ImageLoader.loadImage("res\\screens\\instructions_screen.png"));
+		pausedState = new PausedState(ImageLoader.loadImage("res\\screens\\pause_screen.png"));
+		upgradeScreenHome = new UpgradeScreenHome(ImageLoader.loadImage("res\\screens\\upgrade_screen_main.png"));
+		offensiveUpgradeScreen = new OffensiveUpgradeScreen(ImageLoader.loadImage("res\\screens\\offensive_upgrades.png"));
 		
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -281,6 +290,30 @@ public class Engine implements Runnable {
 
 	public void setInstructionsState(InstructionsState instructionsState) {
 		this.instructionsState = instructionsState;
+	}
+
+	public PausedState getPausedState() {
+		return pausedState;
+	}
+
+	public void setPausedState(PausedState pausedState) {
+		this.pausedState = pausedState;
+	}
+
+	public UpgradeScreenHome getUpgradeScreenHome() {
+		return upgradeScreenHome;
+	}
+
+	public void setUpgradeScreenHome(UpgradeScreenHome upgradeScreenHome) {
+		this.upgradeScreenHome = upgradeScreenHome;
+	}
+
+	public OffensiveUpgradeScreen getOffensiveUpgradeScreen() {
+		return offensiveUpgradeScreen;
+	}
+
+	public void setOffensiveUpgradeScreen(OffensiveUpgradeScreen offensiveUpgradeScreen) {
+		this.offensiveUpgradeScreen = offensiveUpgradeScreen;
 	}
 
 }
