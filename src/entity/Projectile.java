@@ -7,13 +7,18 @@ import mainStuff.Handler;
 
 public class Projectile extends Object{
 
+	private int moveX,moveY;
+	
 	public Projectile(Handler handler, BufferedImage b, int x, int y, int width, int height) {
 		super(handler, b, x, y, width, height);
+		moveX = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpXvel();
+		moveY = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpYvel();
 	}
 	
 	@Override
 	public void update(){
-		x+=5;
+		this.x -= moveX;
+		this.y -= moveY;
 	}
 
 	@Override
