@@ -28,9 +28,11 @@ public class World {
 	
 	// This loops through the linkedList and updates every entity in it
 	public void update(){
-		for (Entity e : allThings){
+		/*for (Entity e : allThings){
 			e.update();
-		}
+		}*/
+		
+		
 		
 		for (Iterator<Entity> kente = allThings.iterator() ; kente.hasNext();){
 			Entity e  = kente.next();
@@ -38,7 +40,7 @@ public class World {
 			if (e.x <= 0 || e.x >= 1600 || e.y <= 0 || e.y >= 900){
 				kente.remove();
 			}
-			
+			e.update();
 		}
 		
 		//System.out.println("Entities in game " + allThings.size());
@@ -46,9 +48,18 @@ public class World {
 	
 	// This loops through the linkedList and renders every entity in it
 	public void render(Graphics g){
-		for (Entity e : allThings){
+		/*for (Entity e : allThings){
 			e.render(g);
+		}*/
+		
+		for (Iterator<Entity> kente = allThings.iterator() ; kente.hasNext();){
+			
+			Entity e  = kente.next();
+			e.render(g);
+			
+			
 		}
+		
 	}
 
 	public Player getPlayer() {
