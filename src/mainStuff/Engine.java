@@ -4,6 +4,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.lang.Thread.State;
 
+import buttons.ButtonManager;
 import file.ImageLoader;
 import manager.KeyManager;
 import manager.MouseManager;
@@ -13,6 +14,7 @@ import states.MenuState;
 import states.OffensiveUpgradeScreen;
 import states.PausedState;
 import states.SettingsState;
+import states.ShopState;
 import states.StateManager;
 import states.UpgradeScreenHome;
 
@@ -35,6 +37,7 @@ public class Engine implements Runnable {
 	//Handler Declaration
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
+	private ButtonManager buttonManager;
 	
 	private GameState gameState;
 	private MenuState menuState;
@@ -43,6 +46,7 @@ public class Engine implements Runnable {
 	private PausedState pausedState;
 	private UpgradeScreenHome upgradeScreenHome;
 	private OffensiveUpgradeScreen offensiveUpgradeScreen;
+	private ShopState shopState;
 
 	public Engine(String title, int frameX, int frameY) {
 		this.width = frameX;
@@ -57,6 +61,7 @@ public class Engine implements Runnable {
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager(handler);
 		
+		
 		menuState = new MenuState(ImageLoader.loadImage("res\\screens\\home_menu_screen.png"));
 		gameState = new GameState(handler, null);
 		settingsState = new SettingsState(ImageLoader.loadImage("res\\screens\\settings_screen.png"));
@@ -64,6 +69,9 @@ public class Engine implements Runnable {
 		pausedState = new PausedState(ImageLoader.loadImage("res\\screens\\pause_screen.png"));
 		upgradeScreenHome = new UpgradeScreenHome(ImageLoader.loadImage("res\\screens\\upgrade_screen_main.png"));
 		offensiveUpgradeScreen = new OffensiveUpgradeScreen(ImageLoader.loadImage("res\\screens\\offensive_upgrades.png"));
+		setShopState(new ShopState(ImageLoader.loadImage("res\\screens\\shop_screen.jpg")));
+		
+		buttonManager = new ButtonManager(handler);
 		
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -314,6 +322,22 @@ public class Engine implements Runnable {
 
 	public void setOffensiveUpgradeScreen(OffensiveUpgradeScreen offensiveUpgradeScreen) {
 		this.offensiveUpgradeScreen = offensiveUpgradeScreen;
+	}
+
+	public ButtonManager getButtonManager() {
+		return buttonManager;
+	}
+
+	public void setButtonManager(ButtonManager buttonManager) {
+		this.buttonManager = buttonManager;
+	}
+
+	public ShopState getShopState() {
+		return shopState;
+	}
+
+	public void setShopState(ShopState shopState) {
+		this.shopState = shopState;
 	}
 
 }
