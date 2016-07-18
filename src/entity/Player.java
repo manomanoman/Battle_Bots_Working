@@ -27,6 +27,8 @@ public class Player extends Character{
 	private int experience,maxExperience;
 	
 	private int projectileSpeed;
+	private double pXvel;
+	private double pYvel;
 	
 	//Regen Stats
 	private int healthRegen;
@@ -148,7 +150,6 @@ public class Player extends Character{
 		
 		
 		
-		
 	}
 
 	@Override
@@ -217,19 +218,43 @@ public class Player extends Character{
 		
 		double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
 
-		double pXvel = projectileSpeed*unit_Vector[1]; //How do I access the x compoment of the vector above?
-		double pYvel = projectileSpeed*unit_Vector[2]; //Same here but y comp
+		pXvel = projectileSpeed*unit_Vectors[0];
+		pYvel = projectileSpeed*unit_Vectors[1]; 
 	
+		p.x += pXvel;
+		p.y += pYvel;
 		
 		World.allThings.add(p);
 		
-		//upl
-		//double pXvel ++ ;  has to be increasing by a multiple of itself
-		//double pYvel ++ ;
+
 
 		
 	}
 	
+	public int getProjectileSpeed() {
+		return projectileSpeed;
+	}
+
+	public void setProjectileSpeed(int projectileSpeed) {
+		this.projectileSpeed = projectileSpeed;
+	}
+
+	public double getpXvel() {
+		return pXvel;
+	}
+
+	public void setpXvel(double pXvel) {
+		this.pXvel = pXvel;
+	}
+
+	public double getpYvel() {
+		return pYvel;
+	}
+
+	public void setpYvel(double pYvel) {
+		this.pYvel = pYvel;
+	}
+
 	private void move(){
 		if (handler.getKeyManager().left){
 			x-=speed;
