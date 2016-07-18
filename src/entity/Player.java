@@ -16,6 +16,7 @@ public class Player extends Character{
 	// Default Player width and height is 64x64
 	
 	private float mouseX,mouseY;
+	private float m_RelX, m_RelY;
 	private double theta;
 	private int quadrant;
 	
@@ -24,6 +25,8 @@ public class Player extends Character{
 	private int stamina,maxStamina;
 	private int armor,maxArmor;
 	private int experience,maxExperience;
+	
+	private int projectileSpeed;
 	
 	//Regen Stats
 	private int healthRegen;
@@ -66,6 +69,7 @@ public class Player extends Character{
 		stamina = 100;
 		armor = 100;
 		experience = 100;
+		projectileSpeed = 5;
 		
 		speed = 2;
 	}
@@ -121,26 +125,30 @@ public class Player extends Character{
 		}
 		
 		
-		
-		
-		
 		move();
-		int centerPNG = 64/2;
+		
 		mouseX = handler.getMouseManager().getMouseX();
 		mouseY = handler.getMouseManager().getMouseY();
-		if (y-mouseY + centerPNG > 0 && x-mouseX+centerPNG > 0){
-			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG )) + Math.PI;
+		m_RelX = x-mouseX + height/2; // Coordinates relative to center of player
+		m_RelY = y-mouseY + height/2;
+		
+		if (m_RelY > 0 && m_RelX > 0){
+			theta = Math.atan(m_RelY/m_RelX) + Math.PI;
 			quadrant = 1;
-		} else if (y-mouseY + centerPNG > 0 && x-mouseX+centerPNG < 0) {
-			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG));
+		} else if (m_RelY > 0 && m_RelX < 0) {
+			theta = Math.atan(m_RelY/m_RelX);
 			quadrant = 2;
-		} else if (y-mouseY + centerPNG < 0 && x-mouseX+centerPNG < 0) {
-			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG));
+		} else if (m_RelY < 0 && m_RelX < 0) {
+			theta = Math.atan(m_RelY/m_RelX);
 			quadrant = 3;
-		} else if (y-mouseY + centerPNG < 0 && x-mouseX+centerPNG > 0) {
-			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG)) + Math.PI;
+		} else if (m_RelY < 0 && m_RelX > 0) {
+			theta = Math.atan(m_RelY/m_RelX) + Math.PI;
 			quadrant = 4;
 		}
+		
+		
+		
+		
 	}
 
 	@Override
@@ -165,12 +173,10 @@ public class Player extends Character{
 			mouseY++;
 		}
 		
-		
-		float mouseRelativeY = y-mouseY;
-		float mouseRelativeX = x-mouseX;
+
 		g.drawString("Theta " + Math.toDegrees(theta), 10, 65);		
-		g.drawString("Mouse Relative Y" + mouseRelativeY, 10, 75);	
-		g.drawString("Mouse Relative X" + mouseRelativeX, 10, 85);	
+		g.drawString("Mouse Relative Y" + m_RelY, 10, 75);	
+		g.drawString("Mouse Relative X" + m_RelX, 10, 85);	
 		g.drawString("Quandrant " + quadrant, 10, 95);				
 		playerRotation.rotate(theta,32,32);
 		
@@ -202,13 +208,26 @@ public class Player extends Character{
 	}
 	
 	public void shoot(){
-		int barrelLength = 10;
-		double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
-		double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
+//		int barrelLength = 10;
+//		double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
+//		double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
 		//This is what pat coded, hell have to fix this eventually
 		//Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
 		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),x+(width/2),y+(height/2), 16, 16);
+		
+		double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
+
+		double pXvel = projectileSpeed*unit_Vector[1]; //How do I access the x compoment of the vector above?
+		double pYvel = projectileSpeed*unit_Vector[2]; //Same here but y comp
+	
+		
 		World.allThings.add(p);
+		
+		//upl
+		//double pXvel ++ ;  has to be increasing by a multiple of itself
+		//double pYvel ++ ;
+
+		
 	}
 	
 	private void move(){
