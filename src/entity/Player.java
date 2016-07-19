@@ -11,8 +11,11 @@ import java.util.ConcurrentModificationException;
 
 import file.ImageLoader;
 import mainStuff.Handler;
+import manager.SkillManager;
 
 public class Player extends Character{
+	
+	private SkillManager skillManager;
 	
 	// Default Player width and height is 64x64
 	
@@ -23,6 +26,8 @@ public class Player extends Character{
 	
 	
 	//Player Stats
+	private int upgradePoints;
+	private int level;
 	private int health,maxHealth;
 	private int stamina,maxStamina;
 	private int armor,maxArmor;
@@ -54,19 +59,25 @@ public class Player extends Character{
 
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
+		
+		skillManager = new SkillManager(handler,this);
 		mouseX = 0;
 		mouseY = 0;
+		
+		upgradePoints = 0;
 		
 		//regen rate
 		healthRegen = 1;
 		armorRegen = 1;
 		staminaRegen = 1;
 		
+		level = 1;
+		
 		//maximum stat
 		maxHealth = 1000;
 		maxStamina = 100;
 		maxArmor = 500;
-		maxExperience = 100;
+		maxExperience = 500;
 		
 		
 		//current stats
@@ -81,7 +92,7 @@ public class Player extends Character{
 
 	@Override
 	public void update() {
-		
+		skillManager.update();
 		//Updates the bounding box accordingly
 		bounds.x = x;
 		bounds.y = y;
@@ -90,7 +101,7 @@ public class Player extends Character{
 		unit_Vectors[0] = m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
 		unit_Vectors[1] = m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
 		
-		experience++;
+		experience+=4;
 		
 		adjustStats();
 		
@@ -194,7 +205,11 @@ public class Player extends Character{
 		g.drawString("Theta " + Math.toDegrees(theta), 10, 65);		
 		g.drawString("Mouse Relative Y" + m_RelY, 10, 75);	
 		g.drawString("Mouse Relative X" + m_RelX, 10, 85);	
-		g.drawString("Quandrant " + quadrant, 10, 95);				
+		g.drawString("Quandrant " + quadrant, 10, 95);		
+		
+		g.drawString("current Level " + level, 10, 150);
+		g.drawString("xp to next level " + (maxExperience-experience), 10, 165);
+		g.drawString("upgrade points " + (upgradePoints), 10, 180);
 		playerRotation.rotate(theta,32,32);
 		
 		Graphics2D gg = (Graphics2D) g;
@@ -400,6 +415,22 @@ public class Player extends Character{
 
 	public void setHealthRegen(int healthRegen) {
 		this.healthRegen = healthRegen;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getUpgradePoints() {
+		return upgradePoints;
+	}
+
+	public void setUpgradePoints(int upgradePoints) {
+		this.upgradePoints = upgradePoints;
 	}
 
 }
