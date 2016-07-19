@@ -20,6 +20,7 @@ public class Player extends Character{
 	private double theta;
 	private int quadrant;
 	
+	
 	//Player Stats
 	private int health,maxHealth;
 	private int stamina,maxStamina;
@@ -29,6 +30,7 @@ public class Player extends Character{
 	private int projectileSpeed;
 	private double pXvel;
 	private double pYvel;
+	private double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
 	
 	//Regen Stats
 	private int healthRegen;
@@ -71,13 +73,15 @@ public class Player extends Character{
 		stamina = 100;
 		armor = 100;
 		experience = 100;
-		projectileSpeed = 5;
+		projectileSpeed = 20;
 		
 		speed = 2;
 	}
 
 	@Override
 	public void update() {
+		unit_Vectors[0] = m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
+		unit_Vectors[1] = m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
 		
 		adjustStats();
 		
@@ -216,13 +220,23 @@ public class Player extends Character{
 		//Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
 		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),x+(width/2),y+(height/2), 16, 16);
 		
-		double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
+//		double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
 
-		pXvel = projectileSpeed*unit_Vectors[0];
-		pYvel = projectileSpeed*unit_Vectors[1]; 
+//		pXvel = projectileSpeed*unit_Vectors[0];
+//		pYvel = projectileSpeed*unit_Vectors[1]; 
 	
+		
+
+		
 		p.x += pXvel;
 		p.y += pYvel;
+		
+	
+		
+		System.out.println(m_RelX);
+		System.out.println(m_RelY);
+		System.out.println(pXvel);
+		System.out.println(pYvel);
 		
 		World.allThings.add(p);
 		
