@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 
 import file.ImageLoader;
 import mainStuff.Handler;
@@ -249,7 +250,11 @@ public class Player extends Character{
 		System.out.println(pXvel);
 		System.out.println(pYvel);*/
 		
-		World.allThings.add(p);
+		try{
+			handler.getEngine().getGameState().getWorld().getListIterator().add(p);
+		}catch(ConcurrentModificationException e){
+			System.out.println("concurrent modification exception caught in player.java");
+		}
 		
 
 
