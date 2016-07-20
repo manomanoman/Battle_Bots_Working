@@ -21,8 +21,24 @@ public abstract class Entity {
 		this.width = width;
 		this.height = height;
 		this.bounds = new Rectangle(x,y,width,height);
+	}
+	
+	protected boolean isCollision(Entity e){
+		
+		if (e.equals(this)){
+			return false;
+		}
+		
+		if (this.bounds.intersects(e.bounds)){
+			return true;
+		}
+		return false;
 		
 	}
+		
+	
+		
+
 	
 	public abstract void update();
 	public abstract void render(Graphics g);

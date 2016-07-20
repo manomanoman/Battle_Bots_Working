@@ -72,7 +72,7 @@ public class Player extends Character{
 		health = 1000;
 		stamina = 100;
 		armor = 100;
-		experience = 100;
+		experience = 0;
 		projectileSpeed = 20;
 		
 		speed = 2;
@@ -80,13 +80,21 @@ public class Player extends Character{
 
 	@Override
 	public void update() {
+		
+		//Updates the bounding box accordingly
+		bounds.x = x;
+		bounds.y = y;
+	
+		
 		unit_Vectors[0] = m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
 		unit_Vectors[1] = m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX);
+		
+		experience++;
 		
 		adjustStats();
 		
 		//delete after
-		if (x >= 500){
+		/*if (x >= 500){
 			
 			
 			if (armor > 0){
@@ -95,7 +103,7 @@ public class Player extends Character{
 				health-=5;
 			}
 			
-		}
+		}*/
 		//delete before
 		
 		//health and armor regen
@@ -158,6 +166,9 @@ public class Player extends Character{
 
 	@Override
 	public void render(Graphics g) {
+		
+		g.setColor(Color.red);
+		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		
 		//g.fillRect(500, 0, 1100, 900);
 		
