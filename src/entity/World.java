@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -35,13 +36,18 @@ public class World {
 	public void update() {
 
 		for (listIterator = allThings.listIterator(); listIterator.hasNext();) {
+			try{
 			Entity e = listIterator.next();
-
 			if (e.x <= 0 || e.x >= 1600 || e.y <= 0 || e.y >= 900) {
 				listIterator.remove();
 
 			}
 			e.update();
+			}catch(ConcurrentModificationException e){
+				System.out.println("Java conccurent modification error in world.java");
+			}
+
+			
 		}
 
 	}
