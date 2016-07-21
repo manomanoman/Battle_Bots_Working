@@ -12,8 +12,7 @@ public abstract class NPC extends Character {
 	protected int range;
 	protected int bulletSpeed;
 	protected int bulletDamage;
-	
-	
+	protected int bulletType;
 	
 
 	public NPC(Handler handler, BufferedImage b, int x, int y, int width, int height) {

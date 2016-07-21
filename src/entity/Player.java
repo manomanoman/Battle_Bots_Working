@@ -38,9 +38,12 @@ public class Player extends Character{
 	private int shootTick = 0;
 	
 	private int projectileSpeed;
+	private int projectileDamage;
 	private double pXvel;
 	private double pYvel;
 	private double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
+	private int projectileType;
+	
 	
 	//Regen Stats
 	private int healthRegen;
@@ -90,6 +93,8 @@ public class Player extends Character{
 		armor = 100;
 		experience = 0;
 		projectileSpeed = 20;
+		projectileDamage = 10;
+		projectileType = 1; // Bounce off Walls, Explosive, Armor Piercing, etc... onCollision(...
 		rateOfFire = 5;
 		shootTick = rateOfFire;
 		
