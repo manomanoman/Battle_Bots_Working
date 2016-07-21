@@ -9,6 +9,8 @@ import states.StateManager;
 public class MouseManager implements MouseListener,MouseMotionListener{
 	
 	private int mouseX,mouseY;
+	private boolean mouse1Held;
+	
 	
 	private Handler handler;
 	
@@ -18,6 +20,7 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 		mouseX = e.getX();
 		mouseY = e.getY();
 		
@@ -38,6 +41,8 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 		mouseX = e.getX();
 		mouseY = e.getY();
 		
+		
+		
 	}
 
 	@Override
@@ -49,19 +54,27 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		mouse1Held = true;
+		
 		mouseX = e.getX();
 		mouseY = e.getY();
+		
 		handler.getEngine().getButtonManager().buttonHasBeenClicked(this);
-		if (StateManager.getCurrentState().equals(handler.getEngine().getGameState())){
-			handler.getEngine().getGameState().getWorld().getPlayer().shoot();
-		}
+		
+		
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
+		mouse1Held = false;
+		
 		mouseX = e.getX();
 		mouseY = e.getY();
+		
+		
 		
 	}
 
@@ -95,6 +108,14 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 
 	public void setMouseX(int mouseX) {
 		this.mouseX = mouseX;
+	}
+
+	public boolean isMouse1Held() {
+		return mouse1Held;
+	}
+
+	public void setMouse1Held(boolean mouse1Held) {
+		this.mouse1Held = mouse1Held;
 	}
 
 }

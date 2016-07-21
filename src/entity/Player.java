@@ -33,6 +33,10 @@ public class Player extends Character{
 	private int armor,maxArmor;
 	private int experience,maxExperience;
 	
+	//Shooting Ints
+	private int rateOfFire;
+	private int shootTick = 0;
+	
 	private int projectileSpeed;
 	private double pXvel;
 	private double pYvel;
@@ -86,12 +90,23 @@ public class Player extends Character{
 		armor = 100;
 		experience = 0;
 		projectileSpeed = 20;
+		rateOfFire = 5;
+		shootTick = rateOfFire;
 		
 		speed = 2;
 	}
 
 	@Override
 	public void update() {
+		
+		if (handler.getEngine().getMouseManager().isMouse1Held()){
+			shoot();
+		}else{
+			if (shootTick > 0){
+				shootTick = 0;
+			}
+		}
+		
 		skillManager.update();
 		//Updates the bounding box accordingly
 		bounds.x = x;
@@ -210,6 +225,9 @@ public class Player extends Character{
 		g.drawString("current Level " + level, 10, 150);
 		g.drawString("xp to next level " + (maxExperience-experience), 10, 165);
 		g.drawString("upgrade points " + (upgradePoints), 10, 180);
+		
+		g.drawString("rateOfFire " + (rateOfFire), 10, 200);
+		g.drawString("shootTick " + (shootTick), 10, 215);
 		playerRotation.rotate(theta,32,32);
 		
 		Graphics2D gg = (Graphics2D) g;
@@ -240,36 +258,46 @@ public class Player extends Character{
 	}
 	
 	public void shoot(){
-//		int barrelLength = 10;
-//		double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
-//		double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
-		//This is what pat coded, hell have to fix this eventually
-		//Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
-		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),x+(width/2)-8,y+(height/2)-8, 16, 16);
 		
-		double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
+		if (shootTick >= rateOfFire){
+//			int barrelLength = 10;
+//			double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
+//			double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
+			//This is what pat coded, hell have to fix this eventually
+			//Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+			Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),x+(width/2)-8,y+(height/2)-8, 16, 16);
+			
+			double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
 
-		pXvel = projectileSpeed*unit_Vectors[0];
-		pYvel = projectileSpeed*unit_Vectors[1]; 
-	
+			pXvel = projectileSpeed*unit_Vectors[0];
+			pYvel = projectileSpeed*unit_Vectors[1]; 
 		
+			
 
+			
+			/*p.x += pXvel;
+			p.y += pYvel;*/
+			
 		
-		/*p.x += pXvel;
-		p.y += pYvel;*/
-		
-	
-		/*
-		System.out.println(m_RelX);
-		System.out.println(m_RelY);
-		System.out.println(pXvel);
-		System.out.println(pYvel);*/
-		
-		try{
-			handler.getEngine().getGameState().getWorld().getListIterator().add(p);
-		}catch(ConcurrentModificationException e){
-			System.out.println("concurrent modification exception caught in player.java");
+			/*
+			System.out.println(m_RelX);
+			System.out.println(m_RelY);
+			System.out.println(pXvel);
+			System.out.println(pYvel);*/
+			
+			try{
+				handler.getEngine().getGameState().getWorld().getListIterator().add(p);
+			}catch(ConcurrentModificationException e){
+				System.out.println("concurrent modification exception caught in player.java");
+			}
+			
+			shootTick = 0;
+
+		}else{
+			shootTick++;
 		}
+		
+		
 		
 
 
@@ -431,6 +459,14 @@ public class Player extends Character{
 
 	public void setUpgradePoints(int upgradePoints) {
 		this.upgradePoints = upgradePoints;
+	}
+
+	public int getRateOfFire() {
+		return rateOfFire;
+	}
+
+	public void setRateOfFire(int rateOfFire) {
+		this.rateOfFire = rateOfFire;
 	}
 
 }
