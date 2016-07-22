@@ -8,6 +8,7 @@ import java.util.ListIterator;
 
 import file.ImageLoader;
 import mainStuff.Handler;
+import npcs.Soldier;
 
 
 // This is the world which is created when the gamestate is created. This handles the updating and rendering for all entities
@@ -16,6 +17,7 @@ public class World {
 	
 	private Player player;
 	private Handler handler;
+	private Soldier soldier;
 	
 	private ExpBox xb;
 	
@@ -26,10 +28,10 @@ public class World {
 	public World(Handler handler){
 		this.handler = handler;
 		this.player = new Player(handler,ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
-//		this.soldier = new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), 200, 200, 64, 64);
+		this.soldier = new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), 200, 200, 64, 64);
 		xb = new ExpBox(handler, null, 200, 200, 15, 15);
 		allThings.add(player);
-//		allThings.add(soldier);
+		allThings.add(soldier);
 //		allThings.add(ExpBox);
 		allThings.add(xb);
 		

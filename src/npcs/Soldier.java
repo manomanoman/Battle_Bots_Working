@@ -1,6 +1,8 @@
 package npcs;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import entity.NPC;
@@ -32,7 +34,15 @@ public class Soldier extends NPC {
 
 	@Override
 	public void render(Graphics g) { 
+		g.setColor(Color.red);
+		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		
+		//g.fillRect(500, 0, 1100, 900);
+		
+		// This rectangle represents the bounding box, aka what we will use to check collisions
+		g.setColor(Color.red);
+		g.fillRect(x, y, width, height);
+		Graphics2D gg = (Graphics2D) g;
 	}
 	
 
