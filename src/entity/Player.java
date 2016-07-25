@@ -24,7 +24,6 @@ public class Player extends Character{
 	private double theta;
 	private int quadrant;
 	
-	
 	//Player Stats
 	private int upgradePoints;
 	private int level;
@@ -44,13 +43,11 @@ public class Player extends Character{
 	private double[] unit_Vectors =  {m_RelX/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX),m_RelY/Math.sqrt(m_RelY*m_RelY+m_RelX*m_RelX)};
 	private int projectileType;
 	
-	
 	//Regen Stats
 	private int healthRegen;
 	private int armorRegen;
 	private int staminaRegen;
-	
-	
+		
 	private int speed;
 	
 	private Color healthColor = new Color(255,94,94);
@@ -60,7 +57,6 @@ public class Player extends Character{
 	
 	// booleans
 	private boolean turboActive = false;
-	
 	
 	private BufferedImage ui = ImageLoader.loadImage("res\\screens\\user_bar.png");
 
@@ -85,7 +81,6 @@ public class Player extends Character{
 		maxStamina = 100;
 		maxArmor = 500;
 		maxExperience = 500;
-		
 		
 		//current stats
 		health = 1000;
@@ -193,7 +188,6 @@ public class Player extends Character{
 		}
 		
 		
-		
 	}
 
 	@Override
@@ -276,8 +270,6 @@ public class Player extends Character{
 
 			pXvel = projectileSpeed*unit_Vectors[0];
 			pYvel = projectileSpeed*unit_Vectors[1]; 
-		
-			
 
 			
 			/*p.x += pXvel;
@@ -302,9 +294,6 @@ public class Player extends Character{
 			shootTick++;
 		}
 		
-		
-		
-
 
 		
 	}
