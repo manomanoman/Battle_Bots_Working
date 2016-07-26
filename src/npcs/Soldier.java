@@ -31,8 +31,8 @@ public class Soldier extends NPC {
 		//	if(Math.sqrt((Soldier.x-Player.x)^2+(Soldier.y-Player.y)^2) < range) { // If the soldier is within the vicinity of the player
 		//  soldier.x   //move soldier toward payer and shoot 
 		//  }
-		if(entity.Projectile.this.equals(bounds))
-			System.out.println("Projectile made contact with soldier");
+//		if(entity.Projectile.this.equals(bounds))
+			
 		
 	}
 

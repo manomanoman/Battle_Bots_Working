@@ -23,16 +23,23 @@ public abstract class Entity {
 		this.bounds = new Rectangle(x,y,width,height);
 	}
 	
+	protected boolean isPlayer;
+	protected boolean isSoldier;
+	protected boolean isObject;
+	
 	protected boolean isCollision(Entity e){
 		
 		if (e.equals(this)){
 			return false;
 		}
 		
+		
 		if (this.bounds.intersects(e.bounds)){
+			System.out.println("Contact");
 			return true;
 		}
-		return false;
+
+			return false;
 		
 	}
 		
