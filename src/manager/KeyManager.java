@@ -3,6 +3,8 @@ package manager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import settings.AdminSettings;
+
 public class KeyManager implements KeyListener {
 	
 	public boolean[] keys;
@@ -25,6 +27,8 @@ public class KeyManager implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 		
+		
+		
 	}
 
 	@Override
@@ -35,7 +39,10 @@ public class KeyManager implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+		
+		
+		
+		
 		
 	}
 	

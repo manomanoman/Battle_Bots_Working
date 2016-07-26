@@ -15,11 +15,12 @@ public abstract class NPC extends Character {
 	protected int bulletSpeed;
 	protected int bulletDamage;
 	protected int bulletType;
+	protected int xp;
 
 
-	public NPC(Handler handler, BufferedImage b, int x, int y, int width, int height) {
+	public NPC(Handler handler, BufferedImage b, int x, int y, int width, int height,int xp) {
 		super(handler, b, x, y, width, height);
-		// TODO Auto-generated constructor stub
+		this.xp = xp;
 		isNPC = true;
 	}
 

@@ -8,16 +8,17 @@ import java.awt.image.BufferedImage;
 import entity.NPC;
 import file.ImageLoader;
 import mainStuff.Handler;
+import settings.AdminSettings;
 
 public class Soldier extends NPC {
 
 	public Soldier(Handler handler, BufferedImage b, int x, int y, int width, int height) {
-		super(handler, b, x, y, width, height);
+		super(handler, b, x, y, width, height,25);
 		
 		isSoldier = true;
 		
-		maxHealth = 100;
-		health = 100;
+		maxHealth = 25;
+		health = 25;
 		healthRegen = 5;
 		speed = 5;
 		range = 150;
@@ -47,8 +48,10 @@ public class Soldier extends NPC {
 		
 		// Soldier
 		
-		g.setColor(Color.red);
-		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		if (AdminSettings.boundingBox == true){
+			g.setColor(Color.red);
+			g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		}
 		
 		
 		
@@ -66,15 +69,19 @@ public class Soldier extends NPC {
 		g.setColor(healthColor);
 		g.fillRect(59, 845, health*700/maxHealth, 5);
 		
-		// bounding box
-		g.setColor(Color.red);
-		g.fillRect(x, y, width, height);
+		
 		//draws image
 		Graphics2D gg = (Graphics2D) g;
 		g.drawImage(b,x,y,width,height,null);
 		
 		g.setColor(Color.green);
 		g.fillRect(x+(width/2)-(health/2), y+height+15, health, 5);
+	}
+	
+	@Override
+	public void die() {
+		handler.getEngine().getGameState().getWorld().getPlayer().setExperience(handler.getEngine().getGameState().getWorld().getPlayer().getExperience()+xp);
+		
 	}
 	
 	private void adjustStats(){
@@ -85,5 +92,7 @@ public class Soldier extends NPC {
 //		if (armor > maxArmor){  // For higher lvl NPCs
 //			armor = maxArmor;
 		}
+
+	
 	}
 

@@ -1,6 +1,5 @@
 package buttons;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import mainStuff.Handler;

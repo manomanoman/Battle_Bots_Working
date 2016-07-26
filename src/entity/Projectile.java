@@ -7,6 +7,7 @@ import java.util.ConcurrentModificationException;
 
 import mainStuff.Handler;
 import npcs.Soldier;
+import settings.AdminSettings;
 
 public class Projectile extends Object{
 
@@ -29,10 +30,6 @@ public class Projectile extends Object{
 		bounds.y = y;
 		
 		for (Entity e : World.allThings){
-			
-			/*if (e.isPlayer){
-				return;
-			}*/
 			
 			if (e.isCollision(this)){
 				
@@ -57,8 +54,10 @@ public class Projectile extends Object{
 
 	@Override
 	public void render(Graphics g){
-		g.setColor(Color.red);
-		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		if (AdminSettings.boundingBox == true){
+			g.setColor(Color.red);
+			g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		}
 		g.drawImage(b, x, y, null);
 	}
 	

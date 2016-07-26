@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,76 +11,71 @@ import file.ImageLoader;
 import mainStuff.Handler;
 import npcs.Soldier;
 
-
 // This is the world which is created when the gamestate is created. This handles the updating and rendering for all entities
 
 public class World {
-	
+
 	private Player player;
 	private Handler handler;
 	private Soldier soldier;
-	
+
 	private ExpBox xb;
-	
-	//This is the Entity LinkedList which stores all the current entities
+
+	// This is the Entity LinkedList which stores all the current entities
 	public static LinkedList<Entity> allThings = new LinkedList<Entity>();
 	public static ListIterator<Entity> listIterator = allThings.listIterator();
-	
-	public World(Handler handler){
+
+	public World(Handler handler) {
 		this.handler = handler;
-		this.player = new Player(handler,ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
-		//this.soldier = new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), 200, 200, 64, 64);
-		//xb = new ExpBox(handler, null, 200, 200, 15, 15);
+		this.player = new Player(handler, ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
+
 		allThings.add(player);
-		//allThings.add(soldier);
-//		allThings.add(ExpBox);
-		//allThings.add(xb);
-		
+
 	}
-	
+
 	// This loops through the linkedList and updates every entity in it
 	public void update() {
-		
-		
-		if ((int)(Math.random()*100) == 0){
-			listIterator.add(new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), (int)(Math.random()*600), (int)(Math.random()*600), 64, 64));
+
+		if ((int) (Math.random() * 100) == 0) {
+			listIterator.add(new Soldier(handler, ImageLoader.loadImage("res\\base\\Base_Tier_2.png"),
+					(int) (Math.random() * 600), (int) (Math.random() * 600), 64, 64));
 		}
 
 		for (listIterator = allThings.listIterator(); listIterator.hasNext();) {
-			try{
-			Entity e = listIterator.next();
-			if (e.x <= 0 || e.x >= 1600 || e.y <= 0 || e.y >= 900) {
-				listIterator.remove();
+			try {
+				Entity e = listIterator.next();
+				if (e.x <= 0 || e.x >= 1600 || e.y <= 0 || e.y >= 900) {
+					listIterator.remove();
 
-			}
-			
-			if (e.isPlayer){
-				Player ee = (Player) e;
-				
-				if (ee.getHealth() <= 0){
-					listIterator.remove();
 				}
-			}
-			
-			if (e.isNPC){
-				NPC ee = (NPC) e;
-				
-				if (ee.getHealth() <= 0){
-					listIterator.remove();
+
+				if (e.isPlayer) {
+					Player ee = (Player) e;
+
+					if (ee.getHealth() <= 0) {
+						listIterator.remove();
+					}
 				}
-			}
-			
-			e.update();
-			
-			}catch(ConcurrentModificationException e){
+
+				if (e.isNPC) {
+					NPC ee = (NPC) e;
+
+					if (ee.getHealth() <= 0) {
+						ee.die();
+						listIterator.remove();
+					}
+				}
+
+				e.update();
+
+			} catch (ConcurrentModificationException e) {
 				System.out.println("Java conccurent modification error in world.java");
 			}
 
-			
 		}
 
 	}
-	
+
 	// This loops through the linkedList and renders every entity in it
 	public void render(Graphics g) {
 

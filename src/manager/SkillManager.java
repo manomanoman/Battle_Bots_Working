@@ -20,7 +20,6 @@ public class SkillManager {
 	public void update() {
 
 		int nextExpCap = levelToExp[player.getLevel() - 1][1];
-		System.out.println(nextExpCap + " ");
 
 		if (player.getExperience() >= nextExpCap) {
 			levelUp(player);

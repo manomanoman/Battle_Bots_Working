@@ -12,5 +12,7 @@ public abstract class Character extends Entity{
 		super(handler, b, x, y, width, height);
 		isCharacter = true;
 	}
+	
+	public abstract void die();
 
 }
