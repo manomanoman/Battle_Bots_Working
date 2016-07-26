@@ -1,9 +1,12 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 
 import mainStuff.Handler;
+import npcs.Soldier;
 
 public class Projectile extends Object{
 
@@ -13,17 +16,49 @@ public class Projectile extends Object{
 		super(handler, b, x, y, width, height);
 		moveX = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpXvel();
 		moveY = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpYvel();
+		
+		isProjectile = true;
 	}
 	
 	@Override
 	public void update(){
 		this.x -= moveX;
 		this.y -= moveY;
+		
+		bounds.x = x;
+		bounds.y = y;
+		
+		for (Entity e : World.allThings){
+			
+			/*if (e.isPlayer){
+				return;
+			}*/
+			
+			if (e.isCollision(this)){
+				
+				
+				
+				if (e.isSoldier){
+					
+					Soldier ee = (Soldier) e;
+					ee.setHealth(ee.getHealth()-5);
+					
+					World.listIterator.remove();
+				}
+				
+				
+			}
+			
+			
+		}
+		
+		
 	}
 
 	@Override
 	public void render(Graphics g){
-		g.fillRect(x, y, bounds.width, bounds.height);
+		g.setColor(Color.red);
+		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		g.drawImage(b, x, y, null);
 	}
 	

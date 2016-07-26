@@ -23,22 +23,27 @@ public class World {
 	
 	//This is the Entity LinkedList which stores all the current entities
 	public static LinkedList<Entity> allThings = new LinkedList<Entity>();
-	private ListIterator<Entity> listIterator = allThings.listIterator();
+	public static ListIterator<Entity> listIterator = allThings.listIterator();
 	
 	public World(Handler handler){
 		this.handler = handler;
 		this.player = new Player(handler,ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
-		this.soldier = new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 200, 200, 64, 64);
-		xb = new ExpBox(handler, null, 200, 200, 15, 15);
+		//this.soldier = new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), 200, 200, 64, 64);
+		//xb = new ExpBox(handler, null, 200, 200, 15, 15);
 		allThings.add(player);
-		allThings.add(soldier);
+		//allThings.add(soldier);
 //		allThings.add(ExpBox);
-		allThings.add(xb);
+		//allThings.add(xb);
 		
 	}
 	
 	// This loops through the linkedList and updates every entity in it
 	public void update() {
+		
+		
+		if ((int)(Math.random()*100) == 0){
+			listIterator.add(new Soldier(handler,ImageLoader.loadImage("res\\base\\Base_Tier_2.png"), (int)(Math.random()*600), (int)(Math.random()*600), 64, 64));
+		}
 
 		for (listIterator = allThings.listIterator(); listIterator.hasNext();) {
 			try{
@@ -47,7 +52,25 @@ public class World {
 				listIterator.remove();
 
 			}
+			
+			if (e.isPlayer){
+				Player ee = (Player) e;
+				
+				if (ee.getHealth() <= 0){
+					listIterator.remove();
+				}
+			}
+			
+			if (e.isNPC){
+				NPC ee = (NPC) e;
+				
+				if (ee.getHealth() <= 0){
+					listIterator.remove();
+				}
+			}
+			
 			e.update();
+			
 			}catch(ConcurrentModificationException e){
 				System.out.println("Java conccurent modification error in world.java");
 			}

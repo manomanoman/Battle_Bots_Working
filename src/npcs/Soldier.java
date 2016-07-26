@@ -14,8 +14,10 @@ public class Soldier extends NPC {
 	public Soldier(Handler handler, BufferedImage b, int x, int y, int width, int height) {
 		super(handler, b, x, y, width, height);
 		
-		maxHealth_NPC = 100;
-		health_NPC = 100;
+		isSoldier = true;
+		
+		maxHealth = 100;
+		health = 100;
 		healthRegen = 5;
 		speed = 5;
 		range = 150;
@@ -28,6 +30,10 @@ public class Soldier extends NPC {
 	
 	@Override
 	public void update() {
+		
+		
+		
+		
 		//	if(Math.sqrt((Soldier.x-Player.x)^2+(Soldier.y-Player.y)^2) < range) { // If the soldier is within the vicinity of the player
 		//  soldier.x   //move soldier toward payer and shoot 
 		//  }
@@ -44,30 +50,37 @@ public class Soldier extends NPC {
 		g.setColor(Color.red);
 		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		
-		//g.fillRect(500, 0, 1100, 900);
-		g.setColor(Color.red);
 		
-		//g.drawImage(b, x,y,null);
+		
+		
 		
 		// User Bar
 		Color healthColor = new Color(255,94,94);
 		Color armorColor = new Color(122,213,245);
 /*		g.drawImage(ui,0,-15,1600,900,null); 
 	*/
+		
+	
+		
 		//Health
 		g.setColor(healthColor);
-		g.fillRect(59, 845, health_NPC*700/maxHealth_NPC, 5);
+		g.fillRect(59, 845, health*700/maxHealth, 5);
 		
 		// bounding box
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
+		//draws image
 		Graphics2D gg = (Graphics2D) g;
+		g.drawImage(b,x,y,width,height,null);
+		
+		g.setColor(Color.green);
+		g.fillRect(x+(width/2)-(health/2), y+height+15, health, 5);
 	}
 	
 	private void adjustStats(){
 
-		if (health_NPC > maxHealth_NPC){
-			health_NPC = maxHealth_NPC;
+		if (health > maxHealth){
+			health = maxHealth;
 		}
 //		if (armor > maxArmor){  // For higher lvl NPCs
 //			armor = maxArmor;

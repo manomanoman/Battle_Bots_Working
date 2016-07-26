@@ -26,6 +26,9 @@ public abstract class Entity {
 	protected boolean isPlayer;
 	protected boolean isSoldier;
 	protected boolean isObject;
+	protected boolean isProjectile;
+	protected boolean isCharacter;
+	protected boolean isNPC;
 	
 	protected boolean isCollision(Entity e){
 		
@@ -35,18 +38,13 @@ public abstract class Entity {
 		
 		
 		if (this.bounds.intersects(e.bounds)){
-			System.out.println("Contact");
 			return true;
 		}
 
 			return false;
 		
 	}
-		
-	
-		
 
-	
 	public abstract void update();
 	public abstract void render(Graphics g);
 

@@ -63,6 +63,9 @@ public class Player extends Character{
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
 		
+		isPlayer = true;
+		
+		
 		skillManager = new SkillManager(handler,this);
 		mouseX = 0;
 		mouseY = 0;
