@@ -31,8 +31,11 @@ public class Soldier extends NPC {
 	
 	@Override
 	public void update() {
+		this.x -= 2;
+		this.y -= 2 * Math.random();
 		
-		
+		bounds.x = x;
+		bounds.y = y;	
 		
 		
 		//	if(Math.sqrt((Soldier.x-Player.x)^2+(Soldier.y-Player.y)^2) < range) { // If the soldier is within the vicinity of the player
@@ -54,9 +57,6 @@ public class Soldier extends NPC {
 		}
 		
 		
-		
-		
-		
 		// User Bar
 		Color healthColor = new Color(255,94,94);
 		Color armorColor = new Color(122,213,245);
@@ -64,7 +64,6 @@ public class Soldier extends NPC {
 	*/
 		
 	
-		
 		//Health
 		g.setColor(healthColor);
 		g.fillRect(59, 845, health*700/maxHealth, 5);

@@ -109,7 +109,9 @@ public class Player extends Character {
 				shootTick = 0;
 			}
 		}
-
+		if (handler.getKeyManager().keyPressed(null); ) {
+			shoot();
+		}
 		skillManager.update();
 		// Updates the bounding box accordingly
 		bounds.x = x;
@@ -163,7 +165,7 @@ public class Player extends Character {
 		}
 
 		move();
-
+		
 		mouseX = handler.getMouseManager().getMouseX();
 		mouseY = handler.getMouseManager().getMouseY();
 		m_RelX = x - mouseX + height / 2; // Coordinates relative to center of
@@ -288,7 +290,17 @@ public class Player extends Character {
 		} else {
 			shootTick++;
 		}
-
+		
+		public void dropMine() {
+			mine m = new mine(handler,
+					ImageLoader.loadImage("res\\entities\\object\\projectile\\armorBox.png"), x + (width / 2) - 8,
+					y + (height / 2) - 8, 32, 32);
+			try {
+				handler.getEngine().getGameState().getWorld().getListIterator().add(m);
+			} catch (ConcurrentModificationException e) {
+				System.out.println("concurrent modification exception caught in player.java");
+			}
+		}
 	}
 
 	public int getProjectileSpeed() {

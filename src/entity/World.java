@@ -15,11 +15,20 @@ import npcs.Soldier;
 
 public class World {
 
-	private Player player;
+	
 	private Handler handler;
+	
+	//Characters
+	private Player player;
 	private Soldier soldier;
 
-	private ExpBox xb;
+	//Items
+	private ExpBox expBox;
+	private HealthBox healthBox;
+	private ArmorBox armorBox;
+	private mine mine;
+	
+	
 
 	// This is the Entity LinkedList which stores all the current entities
 	public static LinkedList<Entity> allThings = new LinkedList<Entity>();
