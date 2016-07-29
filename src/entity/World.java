@@ -27,8 +27,7 @@ public class World {
 	private HealthBox healthBox;
 	private ArmorBox armorBox;
 	private mine mine;
-	
-	
+
 
 	// This is the Entity LinkedList which stores all the current entities
 	public static LinkedList<Entity> allThings = new LinkedList<Entity>();
@@ -37,9 +36,13 @@ public class World {
 	public World(Handler handler) {
 		this.handler = handler;
 		this.player = new Player(handler, ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
-
+		this.armorBox = new ArmorBox(handler, ImageLoader.loadImage("res\\base\\armorBox.png"), 400, 400, 32, 32);
+		this.healthBox = new HealthBox(handler, ImageLoader.loadImage("res\\base\\healthBox.png"), 300, 300, 32, 32);
+		this.mine = new mine(handler, ImageLoader.loadImage("res\\base\\healthBox.png"), 350, 350, 32, 32);
 		allThings.add(player);
-
+		allThings.add(armorBox);
+		allThings.add(healthBox);
+		allThings.add(mine);
 	}
 
 	// This loops through the linkedList and updates every entity in it
