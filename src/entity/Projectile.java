@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.ConcurrentModificationException;
 
 import mainStuff.Handler;
-import npcs.Soldier;
+import npcs.SoldierA;
+import npcs.SoldierB;
 import settings.AdminSettings;
 
 public class Projectile extends Object{
@@ -35,12 +36,21 @@ public class Projectile extends Object{
 				
 				
 				
-				if (e.isSoldier){
+				if (e.isSoldierA){
 					
-					Soldier ee = (Soldier) e;
+					SoldierA ee = (SoldierA) e;
 					ee.setHealth(ee.getHealth()-5);
 					
 					World.listIterator.remove();
+					
+				}
+				if (e.isSoldierB){
+					
+					SoldierB ee = (SoldierB) e;
+					ee.setHealth(ee.getHealth()-5);
+					
+					World.listIterator.remove();
+					
 				}
 				
 				

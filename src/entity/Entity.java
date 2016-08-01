@@ -23,12 +23,14 @@ public abstract class Entity {
 		this.bounds = new Rectangle(x, y, width, height);
 	}
 
+	protected boolean isNPC;
 	protected boolean isPlayer;
-	protected boolean isSoldier;
+	protected boolean isSoldierA;
+	protected boolean isSoldierB;
 	protected boolean isObject;
 	protected boolean isProjectile;
 	protected boolean isCharacter;
-	protected boolean isNPC;
+
 
 	protected boolean isCollision(Entity e) {
 

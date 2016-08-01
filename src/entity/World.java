@@ -9,25 +9,25 @@ import java.util.ListIterator;
 
 import file.ImageLoader;
 import mainStuff.Handler;
-import npcs.Soldier;
+import npcs.SoldierA;
+import npcs.SoldierB;
 
 // This is the world which is created when the gamestate is created. This handles the updating and rendering for all entities
 
 public class World {
-
 	
 	private Handler handler;
 	
 	//Characters
 	private Player player;
-	private Soldier soldier;
+	private SoldierA soldierA;
+	private SoldierB soldierB;
 
 	//Items
 	private ExpBox expBox;
 	private HealthBox healthBox;
 	private ArmorBox armorBox;
-	private mine mine;
-
+	private Mine mine;
 
 	// This is the Entity LinkedList which stores all the current entities
 	public static LinkedList<Entity> allThings = new LinkedList<Entity>();
@@ -38,7 +38,7 @@ public class World {
 		this.player = new Player(handler, ImageLoader.loadImage("res\\base\\Base_Tier_1.png"), 100, 100, 64, 64);
 		this.armorBox = new ArmorBox(handler, ImageLoader.loadImage("res\\base\\armorBox.png"), 400, 400, 32, 32);
 		this.healthBox = new HealthBox(handler, ImageLoader.loadImage("res\\base\\healthBox.png"), 300, 300, 32, 32);
-		this.mine = new mine(handler, ImageLoader.loadImage("res\\base\\healthBox.png"), 350, 350, 32, 32);
+		this.mine = new Mine(handler, ImageLoader.loadImage("res\\base\\healthBox.png"), 350, 350, 32, 32);
 		allThings.add(player);
 		allThings.add(armorBox);
 		allThings.add(healthBox);
@@ -49,8 +49,10 @@ public class World {
 	public void update() {
 
 		if ((int) (Math.random() * 100) == 0) {
-			listIterator.add(new Soldier(handler, ImageLoader.loadImage("res\\base\\Base_Tier_2.png"),
-					(int) (Math.random() * 600), (int) (Math.random() * 600), 64, 64));
+			listIterator.add(new SoldierA(handler, ImageLoader.loadImage("res\\base\\Base_Tier_2.png"),
+					440,440, 64, 64));
+			listIterator.add(new SoldierB(handler, ImageLoader.loadImage("res\\base\\Base_Tier_3.png"),
+					550,650, 64, 64));
 		}
 
 		for (listIterator = allThings.listIterator(); listIterator.hasNext();) {

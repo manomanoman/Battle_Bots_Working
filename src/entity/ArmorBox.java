@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import mainStuff.Handler;
-import npcs.Soldier;
 
 public class ArmorBox extends PickupableObject{
 	

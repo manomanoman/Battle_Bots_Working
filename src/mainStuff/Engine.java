@@ -79,7 +79,6 @@ public class Engine implements Runnable {
 		display.getFrame().addMouseMotionListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		
-		
 		display.getCanvas().addKeyListener(keyManager);
 		display.getCanvas().addMouseListener(mouseManager);
 		

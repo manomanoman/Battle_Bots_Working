@@ -7,12 +7,16 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ConcurrentModificationException;
 
+import com.sun.glass.events.KeyEvent;
+
 import file.ImageLoader;
 import mainStuff.Handler;
 import manager.SkillManager;
 import settings.AdminSettings;
 
 public class Player extends Character {
+
+	private static final java.awt.event.KeyEvent KeyEvent = null;
 
 	private SkillManager skillManager;
 
@@ -25,11 +29,18 @@ public class Player extends Character {
 
 	// Player Stats
 	private int upgradePoints;
+	private int cash;
 	private int level;
 	private int health, maxHealth;
 	private int stamina, maxStamina;
 	private int armor, maxArmor;
 	private int experience, maxExperience;
+	private int speed;
+	
+	// Regen Stats
+	private int healthRegen;
+	private int armorRegen;
+	private int staminaRegen;
 
 	// Shooting Ints
 	private int rateOfFire;
@@ -42,19 +53,19 @@ public class Player extends Character {
 	private double[] unit_Vectors = { m_RelX / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX),
 			m_RelY / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX) };
 	private int projectileType;
-
-	// Regen Stats
-	private int healthRegen;
-	private int armorRegen;
-	private int staminaRegen;
-
-	private int speed;
+	
+	// Items
+	private int throwableObjects; //Nades, Molotov Cocktails, Mines, etc.
 
 	private Color healthColor = new Color(255, 94, 94);
 	private Color armorColor = new Color(122, 213, 245);
 	private Color staminaColor = new Color(250, 248, 140);
 	private Color experiencecolor = new Color(129, 247, 133);
-
+	
+	
+	//Game Modes
+	private int gameMode; // 1 = Survior, 2 = Capture the Flag
+	
 	// booleans
 	private boolean turboActive = false;
 
@@ -70,7 +81,8 @@ public class Player extends Character {
 		mouseY = 0;
 
 		upgradePoints = 0;
-
+		cash = 250;
+		
 		// regen rate
 		healthRegen = 1;
 		armorRegen = 1;
@@ -99,6 +111,7 @@ public class Player extends Character {
 		speed = 2;
 	}
 
+	
 	@Override
 	public void update() {
 
@@ -110,9 +123,6 @@ public class Player extends Character {
 			}
 		}
 		
-//		if (handler.getKeyManager().keyPressed(k); ) {
-//			shoot();
-//		}
 		
 		skillManager.update();
 		// Updates the bounding box accordingly
@@ -167,7 +177,7 @@ public class Player extends Character {
 		}
 
 		move();
-		
+		dropMine();
 		mouseX = handler.getMouseManager().getMouseX();
 		mouseY = handler.getMouseManager().getMouseY();
 		m_RelX = x - mouseX + height / 2; // Coordinates relative to center of
@@ -220,9 +230,10 @@ public class Player extends Character {
 		g.drawString("current Level " + level, 10, 150);
 		g.drawString("xp to next level " + (maxExperience - experience), 10, 165);
 		g.drawString("upgrade points " + (upgradePoints), 10, 180);
-
-		g.drawString("rateOfFire " + (rateOfFire), 10, 200);
-		g.drawString("shootTick " + (shootTick), 10, 215);
+		g.drawString("cash " + (cash), 10, 195);
+		
+		g.drawString("rateOfFire " + (rateOfFire), 10, 215);
+		g.drawString("shootTick " + (shootTick), 10, 230);
 		playerRotation.rotate(theta, 32, 32);
 
 		Graphics2D gg = (Graphics2D) g;
@@ -293,18 +304,51 @@ public class Player extends Character {
 			shootTick++;
 		}
 		
-//		public void dropMine() {
-//			mine m = new mine(handler,
-//					ImageLoader.loadImage("res\\entities\\object\\projectile\\armorBox.png"), x + (width / 2) - 8,
-//					y + (height / 2) - 8, 32, 32);
-//			try {
-//				handler.getEngine().getGameState().getWorld().getListIterator().add(m);
-//			} catch (ConcurrentModificationException e) {
-//				System.out.println("concurrent modification exception caught in player.java");
-//			}
-//		}
 	}
+	
 
+	
+	public void dropMine() {
+	//	if (handler.getKeyManager().up ){
+	//		System.out.println("Mine Dropped");
+		if (shootTick >= rateOfFire) {
+			// int barrelLength = 10;
+			// double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX +
+			// 32;
+			// double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY +
+			// 32;
+			// This is what pat coded, hell have to fix this eventually
+			// Projectile p = new Projectile(handler,
+			// ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),
+			// (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+			Mine m = new Mine(handler,
+					ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), x + (width / 2) - 8,
+					y + (height / 2) - 8, 16, 16);
+
+			double[] unit_Vectors = { m_RelX / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX),
+					m_RelY / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX) };
+
+			pXvel = projectileSpeed * unit_Vectors[0];
+			pYvel = projectileSpeed * unit_Vectors[1];		
+			
+			int pXacc = 2;
+			int pYacc = 2;
+			
+			
+			
+//	mine m = new mine(handler,
+//			ImageLoader.loadImage("res\\entities\\object\\projectile\\armorBox.png"), x + (width / 2) - 8,
+//			y + (height / 2) - 8, 32, 32);
+//	try {
+//		handler.getEngine().getGameState().getWorld().getListIterator().add(m);
+//	} catch (ConcurrentModificationException e) {
+//		System.out.println("concurrent modification exception caught in player.java");
+//	}
+		System.out.println("Mine Dropped");}
+//	return;
+		}
+	
+	
 	public int getProjectileSpeed() {
 		return projectileSpeed;
 	}
@@ -470,6 +514,18 @@ public class Player extends Character {
 	public void setRateOfFire(int rateOfFire) {
 		this.rateOfFire = rateOfFire;
 	}
+	
+
+
+	public int getCash() {
+		return cash;
+	}
+
+
+	public void setCash(int cash) {
+		this.cash = cash;
+	}
+
 
 	@Override
 	public void die() {

@@ -33,10 +33,11 @@ public class HealthBox extends PickupableObject{
 					Player ee = (Player) e;
 					
 					if(ee.getHealth() == ee.getMaxHealth()){
+						return;
 					}
 					
 					else if (ee.getHealth() + healthRegen > ee.getMaxHealth() ){ 
-					int remainder = ee.getMaxArmor() - ee.getArmor();
+					int remainder = ee.getHealth() - ee.getHealth();
 					ee.setHealth(ee.getHealth()+remainder);
 					World.listIterator.remove();
 					}

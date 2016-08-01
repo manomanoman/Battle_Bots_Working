@@ -10,12 +10,12 @@ import file.ImageLoader;
 import mainStuff.Handler;
 import settings.AdminSettings;
 
-public class Soldier extends NPC {
+public class SoldierA extends NPC {
 
-	public Soldier(Handler handler, BufferedImage b, int x, int y, int width, int height) {
+	public SoldierA(Handler handler, BufferedImage b, int x, int y, int width, int height) {
 		super(handler, b, x, y, width, height,25);
 		
-		isSoldier = true;
+		isSoldierA = true;
 		
 		maxHealth = 25;
 		health = 25;
@@ -80,7 +80,7 @@ public class Soldier extends NPC {
 	@Override
 	public void die() {
 		handler.getEngine().getGameState().getWorld().getPlayer().setExperience(handler.getEngine().getGameState().getWorld().getPlayer().getExperience()+xp);
-		
+		handler.getEngine().getGameState().getWorld().getPlayer().setCash(handler.getEngine().getGameState().getWorld().getPlayer().getCash()+25);
 	}
 	
 	private void adjustStats(){
