@@ -28,6 +28,7 @@ public class SkillManager {
 	}
 
 	public int[][] levelToExp = { 
+			
 			{ 1, 200 }, 
 			{ 2, 400 },
 			{ 3, 600 },				//Temporary quick lvling for testing the skill points

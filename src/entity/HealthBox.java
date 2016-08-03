@@ -43,7 +43,7 @@ public class HealthBox extends PickupableObject{
 					}
 					
 					else{
-					ee.setArmor(ee.getHealth()+ healthRegen );
+					ee.setHealth(ee.getHealth()+ healthRegen );
 					World.listIterator.remove();
 					}
 				}

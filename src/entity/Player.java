@@ -64,7 +64,7 @@ public class Player extends Character {
 	
 	
 	//Game Modes
-	private int gameMode; // 1 = Survior, 2 = Capture the Flag
+// 	private int gameMode; // 1 = Survior, 2 = Capture the Flag
 	
 	// booleans
 	private boolean turboActive = false;
@@ -76,6 +76,9 @@ public class Player extends Character {
 
 		isPlayer = true;
 
+	//	int playerX = x;
+	//	int playerY = y;
+		
 		skillManager = new SkillManager(handler, this);
 		mouseX = 0;
 		mouseY = 0;
@@ -109,6 +112,10 @@ public class Player extends Character {
 		shootTick = rateOfFire;
 
 		speed = 2;
+		
+		//items
+		throwableObjects = 3;
+		
 	}
 
 	
@@ -177,7 +184,9 @@ public class Player extends Character {
 		}
 
 		move();
+		
 		dropMine();
+		
 		mouseX = handler.getMouseManager().getMouseX();
 		mouseY = handler.getMouseManager().getMouseY();
 		m_RelX = x - mouseX + height / 2; // Coordinates relative to center of
@@ -306,12 +315,22 @@ public class Player extends Character {
 		
 	}
 	
-
+	public void throwObject() {
+		
+		
+	}
+	
+	
 	
 	public void dropMine() {
 	//	if (handler.getKeyManager().up ){
 	//		System.out.println("Mine Dropped");
-		if (shootTick >= rateOfFire) {
+
+		if (handler.getKeyManager().VK_f) {
+		if ( throwableObjects > 0) {
+			System.out.println("Mine Dropped");
+			throwableObjects --;
+
 			// int barrelLength = 10;
 			// double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX +
 			// 32;
@@ -321,20 +340,25 @@ public class Player extends Character {
 			// Projectile p = new Projectile(handler,
 			// ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),
 			// (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+			
 			Mine m = new Mine(handler,
-					ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), x + (width / 2) - 8,
-					y + (height / 2) - 8, 16, 16);
+					ImageLoader.loadImage("res\\entities\\object\\projectile\\mine_Disarmed1.png"), x + (width / 2) - 8,
+					y + (height / 2) - 8, 32, 32);
 
-			double[] unit_Vectors = { m_RelX / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX),
-					m_RelY / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX) };
+	//		double[] unit_Vectors = { m_RelX / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX),
+	//				m_RelY / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX) };
 
-			pXvel = projectileSpeed * unit_Vectors[0];
-			pYvel = projectileSpeed * unit_Vectors[1];		
+	//		pXvel = projectileSpeed * unit_Vectors[0];
+	//		pYvel = projectileSpeed * unit_Vectors[1];		
 			
-			int pXacc = 2;
-			int pYacc = 2;
+	//		int pXacc = 2;
+	//		int pYacc = 2;
 			
-			
+			try {
+				handler.getEngine().getGameState().getWorld().getListIterator().add(m);
+			} catch (ConcurrentModificationException e) {
+				System.out.println("concurrent modification exception caught in the mine player.java");
+			}
 			
 //	mine m = new mine(handler,
 //			ImageLoader.loadImage("res\\entities\\object\\projectile\\armorBox.png"), x + (width / 2) - 8,
@@ -344,10 +368,17 @@ public class Player extends Character {
 //	} catch (ConcurrentModificationException e) {
 //		System.out.println("concurrent modification exception caught in player.java");
 //	}
-		System.out.println("Mine Dropped");}
+		}
 //	return;
 		}
+	}
 	
+	public int getPlayerX(){
+		return x;
+	}
+	public int getPlayerY(){
+		return y;
+	}
 	
 	public int getProjectileSpeed() {
 		return projectileSpeed;

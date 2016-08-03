@@ -91,7 +91,13 @@ public class SoldierB extends NPC {
 //		if (armor > maxArmor){  // For higher lvl NPCs
 //			armor = maxArmor;
 		}
-
+	
+	public int getSoldierBx(){
+		return x;
+	}
+	public int getSoldierBy(){
+		return y;
+	}
 	
 	}
 

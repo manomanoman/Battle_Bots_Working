@@ -8,7 +8,7 @@ import settings.AdminSettings;
 public class KeyManager implements KeyListener {
 	
 	public boolean[] keys;
-	public boolean up, down, left, right,shift;
+	public boolean up, down, left, right, shift, VK_f;
 	
 	public KeyManager(){
 		keys = new boolean[256];
@@ -20,6 +20,7 @@ public class KeyManager implements KeyListener {
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];
 		shift = keys[KeyEvent.VK_SHIFT];
+		VK_f = keys[KeyEvent.VK_F];
 		
 	}
 
