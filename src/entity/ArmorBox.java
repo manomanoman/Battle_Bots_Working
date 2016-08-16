@@ -59,8 +59,8 @@ public class ArmorBox extends PickupableObject{
 	@Override
 	public void render(Graphics g) {
 
-		g.setColor(Color.green);
-		g.fillRect(x, y, width, height);
+	//	g.setColor(Color.green);
+	//	g.fillRect(x, y, width, height);
 		g.drawImage(b, x, y, null);
 	}
 

@@ -6,12 +6,16 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import entity.NPC;
+import entity.Player;
 import file.ImageLoader;
 import mainStuff.Handler;
 import settings.AdminSettings;
+import manager.NPCManager;
 
 public class SoldierB extends NPC {
 
+	private Player player;
+	
 	public SoldierB(Handler handler, BufferedImage b, int x, int y, int width, int height) {
 		super(handler, b, x, y, width, height,25);
 		
@@ -31,13 +35,15 @@ public class SoldierB extends NPC {
 	
 	@Override
 	public void update() {
-		this.x -= 0;
-		this.y -= 1 * Math.random();
+		this.x += 2;
+		this.y -= 1;
 		
 		bounds.x = x;
 		bounds.y = y;	
 		
+	//	handler.getEngine().getNpcManager().shootPlayer();
 		
+		//handler.getNPCManager.
 		//	if(Math.sqrt((Soldier.x-Player.x)^2+(Soldier.y-Player.y)^2) < range) { // If the soldier is within the vicinity of the player
 		//  soldier.x   //move soldier toward payer and shoot 
 		//  }
@@ -59,15 +65,11 @@ public class SoldierB extends NPC {
 		
 		// User Bar
 		Color healthColor = new Color(255,94,94);
-		Color armorColor = new Color(122,213,245);
-/*		g.drawImage(ui,0,-15,1600,900,null); 
-	*/
 		
-	
+		
 		//Health
 		g.setColor(healthColor);
 		g.fillRect(59, 845, health*700/maxHealth, 5);
-		
 		
 		//draws image
 		Graphics2D gg = (Graphics2D) g;

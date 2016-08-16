@@ -1,6 +1,7 @@
 package mainStuff;
 import manager.KeyManager;
 import manager.MouseManager;
+import manager.AnimationManager;
 
 public class Handler {
 	
@@ -20,6 +21,10 @@ public class Handler {
 		return e.getMouseManager();
 	}
 
+	public AnimationManager getAnimationManager(){
+		return e.getAnimManager();
+	}
+	
 	public Engine getEngine(){
 		return e;
 	}

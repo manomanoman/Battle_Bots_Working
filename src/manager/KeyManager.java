@@ -21,29 +21,20 @@ public class KeyManager implements KeyListener {
 		right = keys[KeyEvent.VK_D];
 		shift = keys[KeyEvent.VK_SHIFT];
 		VK_f = keys[KeyEvent.VK_F];
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
-		
-		
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
-		
-		
-		
 		
 	}
 	

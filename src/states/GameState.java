@@ -9,10 +9,8 @@ import mainStuff.Handler;
 public class GameState extends State{
 
 	private World world;
-	
 	private Handler handler;
-	
-	
+
 	
 	public GameState(Handler handler,BufferedImage b) {
 		super(b);

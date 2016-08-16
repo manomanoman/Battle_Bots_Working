@@ -11,22 +11,25 @@ import npcs.SoldierA;
 import npcs.SoldierB;
 import settings.AdminSettings;
 
-public class Projectile extends Object{
-
-	private int moveX,moveY;
+public class hillPad extends Object{
 	
-	public Projectile(Handler handler, BufferedImage b, int x, int y, int width, int height) {
+	int blueDamage = 255;
+	int redDamage = 0;
+	private Color hillColor = new Color(redDamage, 0, blueDamage);
+	
+
+	public hillPad(Handler handler, BufferedImage b, int x, int y, int width, int height) {
 		super(handler, b, x, y, width, height);
-		moveX = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpXvel();
-		moveY = (int)handler.getEngine().getGameState().getWorld().getPlayer().getpYvel();
+
+		isHillPad = true;
 		
-		isProjectile = true;
+	//	maxHealth = 25;
+	//	health = 25;
+		
 	}
 	
 	@Override
 	public void update(){
-		this.x -= moveX;
-		this.y -= moveY;
 		
 		bounds.x = x;
 		bounds.y = y;
@@ -35,30 +38,37 @@ public class Projectile extends Object{
 			
 			if (e.isCollision(this)){
 				
-			
+				if (redDamage < 250){
 				if (e.isSoldierA){
 					
 					SoldierA ee = (SoldierA) e;
 					ee.setHealth(ee.getHealth()-5);
-					
-					World.listIterator.remove();	
+					blueDamage -= 1;
+					redDamage += 1;
+					hillColor = new Color(redDamage, 0, blueDamage);
 				}
 				
 				if (e.isSoldierB){
 					
 					SoldierB ee = (SoldierB) e;
 					ee.setHealth(ee.getHealth()-5);
-					
-					World.listIterator.remove();
+					blueDamage -= 5;
+					redDamage += 5;
+					hillColor = new Color(redDamage, 0, blueDamage);	
 				}
 				
-				if (e.isCrate){
-					
-					Crate ee = (Crate) e;
-					ee.setHealth(ee.getHealth()-5);
-					
-					World.listIterator.remove();
+				else if(redDamage >= 250){
+				World.listIterator.remove();	
 				}
+				
+				}
+				
+		//		if (e.isPlayer){
+		//			
+		//			Player ee = (Player) e;
+		//			ee.setHealth(--mineDamage);
+		//		
+		//		}
 				
 				
 			}
@@ -71,11 +81,11 @@ public class Projectile extends Object{
 
 	@Override
 	public void render(Graphics g){
-		if (AdminSettings.boundingBox == true){
-			g.setColor(Color.red);
+	//	if (AdminSettings.boundingBox == true){
+			g.setColor(hillColor);
 			g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
-		}
-		g.drawImage(b, x, y, null);
+	//	}
+	//	g.drawImage(b, x, y, null);
 	}
 	
 }

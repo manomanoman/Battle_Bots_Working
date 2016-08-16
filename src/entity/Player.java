@@ -95,7 +95,7 @@ public class Player extends Character {
 
 		// maximum stat
 		maxHealth = 1000;
-		maxStamina = 100;
+		maxStamina = 500;
 		maxArmor = 500;
 		maxExperience = 500;
 
@@ -320,14 +320,35 @@ public class Player extends Character {
 		
 	}
 	
-	
+	int stallTime = 0;
 	
 	public void dropMine() {
 	//	if (handler.getKeyManager().up ){
 	//		System.out.println("Mine Dropped");
-
-		if (handler.getKeyManager().VK_f) {
-		if ( throwableObjects > 0) {
+		
+		boolean fPress = false;
+		boolean useMine = false;
+		boolean stall = false;
+		
+		
+//		if (handler.getKeyManager().keyReleased(handler.getKeyManager().VK_f))
+//		}
+		
+		
+		if (stall == false){
+		if (handler.getKeyManager().VK_f){
+			stallTime += 50;
+			stall = true;
+			fPress = true;
+			useMine = false;
+		}
+		}
+		if ( throwableObjects > 0 && fPress == true) {
+			fPress = false;
+			stall = true;
+			useMine = true;
+			//while (useMine == true)
+			
 			System.out.println("Mine Dropped");
 			throwableObjects --;
 
@@ -340,11 +361,7 @@ public class Player extends Character {
 			// Projectile p = new Projectile(handler,
 			// ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),
 			// (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
-			
-			Mine m = new Mine(handler,
-					ImageLoader.loadImage("res\\entities\\object\\projectile\\mine_Disarmed1.png"), x + (width / 2) - 8,
-					y + (height / 2) - 8, 32, 32);
-
+	
 	//		double[] unit_Vectors = { m_RelX / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX),
 	//				m_RelY / Math.sqrt(m_RelY * m_RelY + m_RelX * m_RelX) };
 
@@ -354,24 +371,23 @@ public class Player extends Character {
 	//		int pXacc = 2;
 	//		int pYacc = 2;
 			
+			Mine m = new Mine(handler,
+					ImageLoader.loadImage("res\\entities\\object\\projectile\\mine_Disarmed1.png"), x + (width / 2) - 8,
+					y + (height / 2) - 8, 32, 32);
+
 			try {
 				handler.getEngine().getGameState().getWorld().getListIterator().add(m);
 			} catch (ConcurrentModificationException e) {
 				System.out.println("concurrent modification exception caught in the mine player.java");
 			}
 			
-//	mine m = new mine(handler,
-//			ImageLoader.loadImage("res\\entities\\object\\projectile\\armorBox.png"), x + (width / 2) - 8,
-//			y + (height / 2) - 8, 32, 32);
-//	try {
-//		handler.getEngine().getGameState().getWorld().getListIterator().add(m);
-//	} catch (ConcurrentModificationException e) {
-//		System.out.println("concurrent modification exception caught in player.java");
-//	}
-		}
-//	return;
-		}
-	}
+			stallTime = 0;
+			
+			}
+		
+			
+			}
+		
 	
 	public int getPlayerX(){
 		return x;

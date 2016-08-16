@@ -30,6 +30,8 @@ public abstract class Entity {
 	protected boolean isObject;
 	protected boolean isProjectile;
 	protected boolean isCharacter;
+	protected boolean isCrate;
+	protected boolean isHillPad;
 
 
 	protected boolean isCollision(Entity e) {

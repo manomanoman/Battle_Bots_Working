@@ -9,6 +9,8 @@ import entity.NPC;
 import file.ImageLoader;
 import mainStuff.Handler;
 import settings.AdminSettings;
+import manager.NPCManager;
+
 
 public class SoldierA extends NPC {
 
@@ -37,6 +39,8 @@ public class SoldierA extends NPC {
 		bounds.x = x;
 		bounds.y = y;	
 		
+	//	NPCManager.shootPlayer();
+		
 		
 		//	if(Math.sqrt((Soldier.x-Player.x)^2+(Soldier.y-Player.y)^2) < range) { // If the soldier is within the vicinity of the player
 		//  soldier.x   //move soldier toward payer and shoot 
@@ -59,15 +63,10 @@ public class SoldierA extends NPC {
 		
 		// User Bar
 		Color healthColor = new Color(255,94,94);
-		Color armorColor = new Color(122,213,245);
-/*		g.drawImage(ui,0,-15,1600,900,null); 
-	*/
 		
-	
 		//Health
 		g.setColor(healthColor);
 		g.fillRect(59, 845, health*700/maxHealth, 5);
-		
 		
 		//draws image
 		Graphics2D gg = (Graphics2D) g;
@@ -81,6 +80,13 @@ public class SoldierA extends NPC {
 	public void die() {
 		handler.getEngine().getGameState().getWorld().getPlayer().setExperience(handler.getEngine().getGameState().getWorld().getPlayer().getExperience()+xp);
 		handler.getEngine().getGameState().getWorld().getPlayer().setCash(handler.getEngine().getGameState().getWorld().getPlayer().getCash()+25);
+	}
+	
+	public int getSoldierAx(){
+		return x;
+	}
+	public int getSoldierAy(){
+		return y;
 	}
 	
 	private void adjustStats(){

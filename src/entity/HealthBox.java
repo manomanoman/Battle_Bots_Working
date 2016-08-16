@@ -36,11 +36,11 @@ public class HealthBox extends PickupableObject{
 						return;
 					}
 					
-					else if (ee.getHealth() + healthRegen > ee.getMaxHealth() ){ 
-					int remainder = ee.getHealth() - ee.getHealth();
-					ee.setHealth(ee.getHealth()+remainder);
-					World.listIterator.remove();
-					}
+				//	else if (ee.getHealth() + healthRegen > ee.getMaxHealth() ){ 
+				//	int remainder = ee.getHealth() - ee.getHealth();
+				//	ee.setHealth(ee.getHealth()+remainder);
+				//	World.listIterator.remove();
+				//	}
 					
 					else{
 					ee.setHealth(ee.getHealth()+ healthRegen );
@@ -58,8 +58,8 @@ public class HealthBox extends PickupableObject{
 	@Override
 	public void render(Graphics g) {
 
-		g.setColor(Color.green);
-		g.fillRect(x, y, width, height);
+	//	g.setColor(Color.green);
+	//	g.fillRect(x, y, width, height);
 		g.drawImage(b, x, y, null);
 	}
 

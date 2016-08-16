@@ -6,8 +6,10 @@ import java.lang.Thread.State;
 
 import buttons.ButtonManager;
 import file.ImageLoader;
+import manager.AnimationManager;
 import manager.KeyManager;
 import manager.MouseManager;
+import manager.NPCManager;
 import states.GameState;
 import states.InstructionsState;
 import states.MenuState;
@@ -38,7 +40,17 @@ public class Engine implements Runnable {
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
 	private ButtonManager buttonManager;
+	private NPCManager npcManager;
+	private AnimationManager animManager;
 	
+	public AnimationManager getAnimManager() {
+		return animManager;
+	}
+
+	public void setAnimManager(AnimationManager animManager) {
+		this.animManager = animManager;
+	}
+
 	private GameState gameState;
 	private MenuState menuState;
 	private SettingsState settingsState;
@@ -253,6 +265,14 @@ public class Engine implements Runnable {
 
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+
+	public NPCManager getNpcManager() {
+		return npcManager;
+	}
+
+	public void setNpcManager(NPCManager npcManager) {
+		this.npcManager = npcManager;
 	}
 
 	public void setKeyManager(KeyManager keyManager) {
